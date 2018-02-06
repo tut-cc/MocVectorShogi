@@ -8,6 +8,13 @@ public class Network01 : MonoBehaviour
     {
         // Photonに接続する(引数でゲームのバージョンを指定できる)
         PhotonNetwork.ConnectUsingSettings(null);
+        
+    }
+    void OnConnectedToMaster()
+    {
+        Debug.Log("接続しました。");
+
+        PhotonNetwork.JoinLobby();
     }
 
     // ロビーに入ると呼ばれる

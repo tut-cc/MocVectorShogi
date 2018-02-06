@@ -7,11 +7,13 @@ public class koma : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
 {
     private Vector3 mouseDiff;
     private CanvasGroup myGroup;
+    private PhotonView photonView;
 
     // Use this for initialization
     void Start()
     {
         myGroup = transform.parent.GetComponent<CanvasGroup>();
+        photonView = transform.GetComponent<PhotonView>();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -28,8 +30,7 @@ public class koma : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     {
         mouseDiff = transform.position - Input.mousePosition;
         transform.SetAsLastSibling();
-
+        photonView.RequestOwnership();
         myGroup.blocksRaycasts = false;
-    }
-
+    }    
 }
