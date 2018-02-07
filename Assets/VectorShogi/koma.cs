@@ -18,7 +18,9 @@ public class koma : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = Input.mousePosition + mouseDiff;
+        var pos = Input.mousePosition;
+        pos.z = 300.0f;
+        transform.position = Camera.main.ScreenToWorldPoint(pos);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -28,7 +30,8 @@ public class koma : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        mouseDiff = transform.position - Input.mousePosition;
+        var pos = Input.mousePosition;
+        mouseDiff = transform.position - Camera.main.ScreenToWorldPoint(pos);
         transform.SetAsLastSibling();
         photonView.RequestOwnership();
         myGroup.blocksRaycasts = false;
