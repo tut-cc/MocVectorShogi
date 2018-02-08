@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class koma : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
@@ -9,11 +10,14 @@ public class koma : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     private CanvasGroup myGroup;
     private PhotonView photonView;
     private static Transform root = null;
+    public static Sprite initSprite = null;
 
     void Awake()
     {
-        if(root == null) { root = transform.parent; }
-        transform.parent = root;
+        if (root == null) { root = transform.parent; }
+        else { transform.parent = root; }
+
+        if(initSprite != null) { gameObject.GetComponent<Image>().sprite = initSprite; }
     }
 
     // Use this for initialization

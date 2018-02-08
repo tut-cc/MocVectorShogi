@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Instantiater : MonoBehaviour {
-    public GameObject prefab;
+    public static string prefabName = "koma1";
 
     public void DoInstantiate(Transform root)
     {
-        PhotonNetwork.Instantiate(prefab.name, root.position, root.rotation, 0);
+        PhotonNetwork.Instantiate(prefabName, root.position, root.rotation, 0);
     }
 }
