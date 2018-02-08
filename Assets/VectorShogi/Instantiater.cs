@@ -8,6 +8,5 @@ public class Instantiater : MonoBehaviour {
     public void DoInstantiate(Transform root)
     {
         PhotonNetwork.Instantiate(prefab.name, root.position, root.rotation, 0);
-        //Instantiate(prefab,root);
     }
 }
