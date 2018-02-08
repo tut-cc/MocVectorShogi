@@ -8,6 +8,13 @@ public class koma : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     private Vector3 mouseDiff;
     private CanvasGroup myGroup;
     private PhotonView photonView;
+    private static Transform root = null;
+
+    void Awake()
+    {
+        if(root == null) { root = transform.parent; }
+        transform.parent = root;
+    }
 
     // Use this for initialization
     void Start()
