@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.Events;
+using System.Collections.Generic;
+
 
 public class Network01 : MonoBehaviour
 {
     private string roomName = "";
+    public UnityEvent OnJoinLobbyEvents;
+    public UnityEvent OnJoinRoomEvents;
+    public UnityEvent OnLeftRoomEvemts;
 
     public void SetRoomName(string roomName)
     {
@@ -36,13 +41,14 @@ public class Network01 : MonoBehaviour
     void OnJoinedLobby()
     {
         Debug.Log("ロビーに入りました。");
-
+        OnJoinLobbyEvents.Invoke();
     }
 
     // ルームに入室すると呼ばれる
     void OnJoinedRoom()
     {
         Debug.Log("ルームへ入室しました。");
+        OnJoinRoomEvents.Invoke();
     }
 
     // ルームの入室に失敗すると呼ばれる
@@ -53,5 +59,10 @@ public class Network01 : MonoBehaviour
         // ルームがないと入室に失敗するため、その時は自分で作る
         // 引数でルーム名を指定できる
         PhotonNetwork.CreateRoom(roomName);
+    }
+    void OnLeftRoom()
+    {
+        Debug.Log("ルームを退室しました。");
+        OnJoinLobbyEvents.Invoke();
     }
 }

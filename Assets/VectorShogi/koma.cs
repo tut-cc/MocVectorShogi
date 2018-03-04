@@ -12,17 +12,14 @@ public class koma : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHand
     private static Transform root = null;
     public static Sprite initSprite = null;
 
-    void Awake()
-    {
-        if (root == null) { root = transform.parent; }
-        else { transform.parent = root; }
-
-        if(initSprite != null) { gameObject.GetComponent<Image>().sprite = initSprite; }
-    }
-
     // Use this for initialization
     void Start()
     {
+        if (root == null) { root = GameObject.Find("komaRoot").transform; }
+        transform.parent = root;
+
+        if (initSprite != null) { gameObject.GetComponent<Image>().sprite = initSprite; }
+
         myGroup = transform.parent.GetComponent<CanvasGroup>();
         photonView = transform.GetComponent<PhotonView>();
     }
