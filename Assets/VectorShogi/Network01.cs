@@ -3,12 +3,27 @@ using System.Collections;
 
 public class Network01 : MonoBehaviour
 {
+    private string roomName = "";
+
+    public void SetRoomName(string roomName)
+    {
+        this.roomName = roomName;
+    }
+    public void JoinRoom()
+    {
+        roomName = roomName.Length == 0 ? "default" : roomName;
+        // ルームに入室する
+        PhotonNetwork.JoinRoom(roomName);
+    }
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
 
     void Start()
     {
         // Photonに接続する(引数でゲームのバージョンを指定できる)
-        PhotonNetwork.ConnectUsingSettings(null);
-        
+        PhotonNetwork.ConnectUsingSettings(null);        
     }
     void OnConnectedToMaster()
     {
@@ -22,8 +37,6 @@ public class Network01 : MonoBehaviour
     {
         Debug.Log("ロビーに入りました。");
 
-        // ルームに入室する
-        PhotonNetwork.JoinRandomRoom();
     }
 
     // ルームに入室すると呼ばれる
@@ -33,12 +46,12 @@ public class Network01 : MonoBehaviour
     }
 
     // ルームの入室に失敗すると呼ばれる
-    void OnPhotonRandomJoinFailed()
+    void OnPhotonJoinRoomFailed()
     {
         Debug.Log("ルームの入室に失敗しました。");
 
         // ルームがないと入室に失敗するため、その時は自分で作る
         // 引数でルーム名を指定できる
-        PhotonNetwork.CreateRoom("myRoomName");
+        PhotonNetwork.CreateRoom(roomName);
     }
 }
